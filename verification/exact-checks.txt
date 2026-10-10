@@ -1,0 +1,31 @@
+PASS: scalar certificate B
+PASS: expected affine certificate
+PASS: regression scalar cost conversion
+PASS: sharp scalar example
+PASS: anisotropy gap coefficient
+PASS: equality obstruction square completion
+PASS: star dual norm equality conversion
+PASS: isotropic monotonicity
+PASS: isotropic saturation
+PASS: adjugate trace
+PASS: determinant over trace covariance cost
+PASS: Cauchy-Binet pair weights
+PASS: weighted-fit interpolation entry (0,0)
+PASS: weighted-fit interpolation entry (0,1)
+PASS: weighted-fit interpolation entry (1,0)
+PASS: weighted-fit interpolation entry (1,1)
+PASS: lower construction centered
+PASS: lower construction centered second coordinate
+PASS: lower construction edge midpoint (0,1)
+PASS: lower construction edge midpoint (0,2)
+PASS: lower construction edge midpoint (1,2)
+PASS: delta comparison
+PASS: eta bound
+PASS: star cost gap bound
+PASS: determinant perturbation constant
+PASS: isotropic comparison deficit
+PASS: planar cost deficit
+PASS: planar stability numeric lower bound
+PASS: final quantitative contradiction
+PASS: new interval is nonempty
+All exact symbolic checks passed.

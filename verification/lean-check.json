@@ -1,0 +1,464 @@
+{
+  "endpoint": "https://live.lean-lang.org",
+  "project": "mathlib-stable",
+  "filename": "Scalar.lean",
+  "source_sha256": "9eba8044d6d3c667336714872c1f770b431e6c61e258502ce66cfe09948a5665",
+  "checked_at": "2026-10-10T14:59:43.309Z",
+  "result": "success",
+  "diagnostics": {
+    "diagnostics": [
+      {
+        "fullRange": {
+          "end": {
+            "character": 5,
+            "line": 276
+          },
+          "start": {
+            "character": 0,
+            "line": 276
+          }
+        },
+        "message": "\"4.34.0\"",
+        "range": {
+          "end": {
+            "character": 5,
+            "line": 276
+          },
+          "start": {
+            "character": 0,
+            "line": 276
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 277
+          },
+          "start": {
+            "character": 0,
+            "line": 277
+          }
+        },
+        "message": "'WeightedSelectionScalar.certificate_identity' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 277
+          },
+          "start": {
+            "character": 0,
+            "line": 277
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 278
+          },
+          "start": {
+            "character": 0,
+            "line": 278
+          }
+        },
+        "message": "'WeightedSelectionScalar.certificate_implies' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 278
+          },
+          "start": {
+            "character": 0,
+            "line": 278
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 279
+          },
+          "start": {
+            "character": 0,
+            "line": 279
+          }
+        },
+        "message": "'WeightedSelectionScalar.cost_identity' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 279
+          },
+          "start": {
+            "character": 0,
+            "line": 279
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 280
+          },
+          "start": {
+            "character": 0,
+            "line": 280
+          }
+        },
+        "message": "'WeightedSelectionScalar.scalar_moment_selection' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 280
+          },
+          "start": {
+            "character": 0,
+            "line": 280
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 281
+          },
+          "start": {
+            "character": 0,
+            "line": 281
+          }
+        },
+        "message": "'WeightedSelectionScalar.scalar_bound_necessary' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 281
+          },
+          "start": {
+            "character": 0,
+            "line": 281
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 282
+          },
+          "start": {
+            "character": 0,
+            "line": 282
+          }
+        },
+        "message": "'WeightedSelectionScalar.scalar_relaxation_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 282
+          },
+          "start": {
+            "character": 0,
+            "line": 282
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 283
+          },
+          "start": {
+            "character": 0,
+            "line": 283
+          }
+        },
+        "message": "'WeightedSelectionScalar.isotropic_equality_impossible' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 283
+          },
+          "start": {
+            "character": 0,
+            "line": 283
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 284
+          },
+          "start": {
+            "character": 0,
+            "line": 284
+          }
+        },
+        "message": "'WeightedSelectionScalar.isotropic_ratio_bound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 284
+          },
+          "start": {
+            "character": 0,
+            "line": 284
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 285
+          },
+          "start": {
+            "character": 0,
+            "line": 285
+          }
+        },
+        "message": "'WeightedSelectionScalar.delta_numeric_bound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 285
+          },
+          "start": {
+            "character": 0,
+            "line": 285
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 286
+          },
+          "start": {
+            "character": 0,
+            "line": 286
+          }
+        },
+        "message": "'WeightedSelectionScalar.eta_numeric_bound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 286
+          },
+          "start": {
+            "character": 0,
+            "line": 286
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 287
+          },
+          "start": {
+            "character": 0,
+            "line": 287
+          }
+        },
+        "message": "'WeightedSelectionScalar.zeta_numeric_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 287
+          },
+          "start": {
+            "character": 0,
+            "line": 287
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 288
+          },
+          "start": {
+            "character": 0,
+            "line": 288
+          }
+        },
+        "message": "'WeightedSelectionScalar.quantitative_numeric_contradiction' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 288
+          },
+          "start": {
+            "character": 0,
+            "line": 288
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 289
+          },
+          "start": {
+            "character": 0,
+            "line": 289
+          }
+        },
+        "message": "'WeightedSelectionScalar.quantitative_perturbation_constants' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 289
+          },
+          "start": {
+            "character": 0,
+            "line": 289
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 290
+          },
+          "start": {
+            "character": 0,
+            "line": 290
+          }
+        },
+        "message": "'WeightedSelectionScalar.certificate_support_bound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 290
+          },
+          "start": {
+            "character": 0,
+            "line": 290
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 291
+          },
+          "start": {
+            "character": 0,
+            "line": 291
+          }
+        },
+        "message": "'WeightedSelectionScalar.certificate_anisotropy_bound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 291
+          },
+          "start": {
+            "character": 0,
+            "line": 291
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 6,
+            "line": 292
+          },
+          "start": {
+            "character": 0,
+            "line": 292
+          }
+        },
+        "message": "'WeightedSelectionScalar.scalar_anisotropy_selection' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "range": {
+          "end": {
+            "character": 6,
+            "line": 292
+          },
+          "start": {
+            "character": 0,
+            "line": 292
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      },
+      {
+        "fullRange": {
+          "end": {
+            "character": 5,
+            "line": 293
+          },
+          "start": {
+            "character": 0,
+            "line": 293
+          }
+        },
+        "message": "\"SCALAR_CHECK_COMPLETE\"",
+        "range": {
+          "end": {
+            "character": 5,
+            "line": 293
+          },
+          "start": {
+            "character": 0,
+            "line": 293
+          }
+        },
+        "severity": 3,
+        "source": "Lean 4"
+      }
+    ],
+    "uri": "file:///MathlibStable.lean",
+    "version": 1
+  }
+}
