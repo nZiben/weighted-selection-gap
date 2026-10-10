@@ -1,6 +1,6 @@
 {
   "service": "https://latexonline.cc",
-  "source_sha256": "49f75631121eb3381f84ad478c7c4a48125a2d50174345b94be7cbbce2a3591d",
-  "pdf_sha256": "b67772f9f6f0ec4f7a3ddd38e0c634ab078237f819c714c55b93ab1c8793962e",
+  "source_sha256": "511f0b3ae330c792a82667220a403373c82f192c857cc1d65bc1dbad23b20020",
+  "pdf_sha256": "1018435ddc5dcdfb116a8fc4232360615ec7d3215cc181b9f4830d3af0bd7249",
   "bytes": 273728
 }
