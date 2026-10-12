@@ -1,6 +1,6 @@
 # An explicit gap for three-point weighted selection
 
-**Volkov Sergey, SLAI.** Preprint, 10 October 2026.
+**Volkov Sergey.** Preprint, 10 October 2026.
 
 The paper proves `T₃ ≤ (5/6 − 10⁻²⁰) E` for finite planar residual frames and derives
 `F_weighted(2,2,3) ≤ 11/6 − 10⁻²⁰` for minimum-Frobenius-norm regression.
