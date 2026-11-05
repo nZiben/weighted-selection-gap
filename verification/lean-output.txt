@@ -1,0 +1,13 @@
+"4.34.0"
+'WeightedSelectionScalar.certificate_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.certificate_implies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.cost_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.scalar_moment_selection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.scalar_bound_necessary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.scalar_relaxation_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.isotropic_equality_impossible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.isotropic_ratio_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.certificate_support_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.certificate_anisotropy_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WeightedSelectionScalar.scalar_anisotropy_selection' depends on axioms: [propext, Classical.choice, Quot.sound]
+"SCALAR_CHECK_COMPLETE"

@@ -3,9 +3,10 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools,microtype}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \hypersetup{pdfauthor={Volkov Sergey},
- pdftitle={An explicit gap for three-point weighted selection in planar vector-valued regression}}
+ pdftitle={A strict upper bound for three-point weighted selection in planar vector-valued regression}}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newcommand{\R}{\mathbb R}
 \newcommand{\tr}{\operatorname{tr}}
 \newcommand{\adj}{\operatorname{adj}}
@@ -13,20 +14,22 @@
 \newcommand{\supp}{\operatorname{supp}}
 \newcommand{\Fw}{F_{\mathrm{weighted}}(2,2,3)}
 \newcommand{\T}{\mathcal T_3}
-\title{An explicit gap for three-point weighted selection\\in planar vector-valued regression}
+\title{A strict upper bound for three-point weighted selection\\in planar vector-valued regression}
 \author{Volkov Sergey}
-\date{10 October 2026}
+\date{5 November 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-We prove $\Fw\le11/6-10^{-20}$ for minimum-Frobenius-norm
-least-squares regression with two input and two output coordinates.
-The argument combines a scalar certificate with quantitative stability of
-centered planar selection and a seven-atom support reduction.
-Together with the known lower bound, this gives
-$13/8\le\Fw\le11/6-10^{-20}$.
-Lean verifies the scalar selection theorem, its anisotropy improvement,
-and exact numerical implications; the geometric argument is proved here.
+We prove $F_{\mathrm{weighted}}(2,2,3)<11/6$ for minimum-Frobenius-norm
+least-squares regression with two input and two output coordinates,
+improving the upper bound $15/8$. More precisely, a universal
+$\varepsilon_0>0$ satisfies
+$\mathcal T_3\le(5/6-\varepsilon_0)E$ for every finite residual frame.
+The proof combines an exact scalar certificate, rigidity of equality in
+planar selection, and a compactness argument that controls disappearing
+weights. Together with the known lower bound, this gives
+$13/8\le F_{\mathrm{weighted}}(2,2,3)<11/6$.
+No numerical value of $\varepsilon_0$ is claimed.
 \end{abstract}
 
 \section{Problem and result}
@@ -34,17 +37,22 @@ Weighted data selection for regression was proposed by
 Hanneke, Moran, Shlimovich and Yehudayoff~\cite{open,erms}.
 Zhang~\cite{zhang}, Theorem~6.4, established
 $13/8\le\Fw\le15/8$ and reduced the conjectured value $13/8$
-to a finite planar moment problem. We improve the upper bound.
+to a finite planar moment problem. We use Zhang's residual-frame formulation,
+interpolation hulls, star localization and seven-atom reduction.
+An exact scalar certificate, rigidity of equality and compactness yield
+a strict uniform improvement over all finite datasets.
+The conjectured value $13/8$ remains open.
 
-For a finite dataset $D=((x_i,y_i))_{i=1}^N\subset\R^2\times\R^2$, let
+For a finite sequence $D=((x_i,y_i))_{i=1}^N$ in $\R^2\times\R^2$, $N\ge1$, let
 $L_D(W)=N^{-1}\sum_i\|Wx_i-y_i\|^2$ and $L_D^*=\min_W L_D(W)$.
 For nonnegative weights $c$ of sum one, let $\widehat W_c$ be the
 minimum-Frobenius-norm minimizer of $\sum_i c_i\|Wx_i-y_i\|^2$.
 Then $\Fw$ is the supremum over datasets of
 \[
- \frac{\inf_{|\supp c|\le3}L_D(\widehat W_c)}{L_D^*},
+ \frac{\inf_{c_i\ge0,\,\sum_i c_i=1,\,|\supp c|\le3}L_D(\widehat W_c)}{L_D^*},
 \]
-with $0/0=1$. The infimum, including limits of full-rank selections,
+with $0/0=1$ and positive-over-zero equal to $+\infty$.
+The infimum, including limits of full-rank selections,
 is essential.
 
 A residual frame is a finite collection $p_i>0$, $u_i,w_i\in\R^2$ with
@@ -62,8 +70,9 @@ Using Frobenius distance, define
 \]
 Tightness guarantees an independent pair.
 \begin{theorem}\label{main}
-Every residual frame satisfies $\T\le(5/6-10^{-20})E$.
-Consequently $\Fw\le11/6-10^{-20}$.
+There exists a universal $\varepsilon_0>0$ such that every residual frame
+satisfies $\T\le(5/6-\varepsilon_0)E$. Consequently
+$13/8\le\Fw\le11/6-\varepsilon_0<11/6$.
 \end{theorem}
 
 \section{Planar selection and the scalar certificate}
@@ -110,8 +119,8 @@ $A=\adj S/\tr S$ has trace one, and in dimension two
 \begin{equation}\label{adjidentity}
  \tr(ASA^\top)=\frac{\det S}{\tr S}.
 \end{equation}
-This identity holds also when $S$ is singular. If $\tr S=0$, all
-positive-weight points vanish. Thus singular covariances cause no gap.
+This identity holds also when $S$ is singular. If a covariance has trace
+zero, all its positive-weight points vanish.
 
 Fix an anchor $i$ and a unit vector $n_i\perp u_i$. Put
 \[
@@ -204,13 +213,110 @@ The scalar relaxation alone is sharp: the one-atom scalar distribution
 $r=a=b=1/2$ has $g=5/6$. It is not a valid tight frame.
 The strict improvement must therefore use geometry.
 
-\section{Support reduction and quantitative stability}
+\section{Equality cannot occur}
+\begin{lemma}[Equality rigidity]\label{rigidity}
+Suppose the centered positive distribution has positive definite covariance
+$S$, put $C=\det S/\tr S>0$ and $A=\adj S/\tr S=CS^{-1}$, and let $d^2$
+be the minimum squared norm of a convex combination of at most two original
+points. If $d^2=C$, then every original point satisfies
+\[
+ \|Av_j\|^2=C,\qquad \|S^{-1}v_j\|^2=\tr(S^{-1})=1/C.
+\]
+\end{lemma}
+\begin{proof}
+The original $A$-objective is $C$ by \eqref{adjidentity}. Minimize it as in
+Lemma~\ref{planar}. Its minimum $C_q$ obeys $d^2\le C_q\le C$, so all
+equal $C$. A minimizing least-support distribution must be a centered
+positive triangle, since otherwise $d=0$.
+
+In its planar proof all inequalities are equalities:
+\[
+ C=d^2\le\frac1r\le
+ \frac1{\sum_jq_j\|S_q^{-1}v_j\|^2}\le C_q=C.
+\]
+Equality in the maximum step forces all three dual norms to equal $r=1/C$.
+Equality in weighted Cauchy--Schwarz forces
+$Av_j=C S_q^{-1}v_j$ on the triangle. Its vertices span $\R^2$, hence
+$A=C S_q^{-1}$, and comparison with $A=CS^{-1}$ gives $S_q=S$.
+Each of its three costs $\|Av_j\|^2$ therefore equals $C$.
+
+For an original point $v_k$ not in the selected support, write its affine
+coordinates in the triangle (which need not be nonnegative):
+$v_k=\sum_{j=1}^3\beta_jv_j$, $\sum_j\beta_j=1$. For sufficiently small
+$t>0$, put weight $t$ on $v_k$ and change triangle weights to
+$q_j-t\beta_j\ge0$. This is still a centered probability vector. Its cost
+is $C+t(\|Av_k\|^2-C)$. Minimality forces $\|Av_k\|^2\ge C$.
+Every original weight is positive and their costs average $C$, so every
+cost is exactly $C$. The second identity follows from $A=CS^{-1}$ and
+$\tr S^{-1}=\tr S/\det S$.
+\end{proof}
+
+\begin{lemma}\label{angles}
+A tight planar frame contains two indices with
+$c^2=(u_i^\top u_j/2)^2\le1/4$.
+\end{lemma}
+\begin{proof}
+Write $u_i/\sqrt2=(\cos\theta_i,\sin\theta_i)$. Tightness implies that
+the unit-circle points $t_i=(\cos2\theta_i,\sin2\theta_i)$ have weighted
+mean zero. Reduce a convex representation of zero to at most three points.
+If two suffice, they are antipodal and the corresponding $c^2=0$.
+Otherwise their triangle contains zero in its interior; its three cyclic
+angular gaps are at most $\pi$ and sum $2\pi$. Some gap lies in
+$[2\pi/3,\pi]$, so that pair has
+$c^2=(1+\cos(2\theta_i-2\theta_j))/2\le1/4$.
+A boundary triangle likewise has an antipodal pair.
+\end{proof}
+
+\begin{proposition}\label{strictfinite}
+Every finite positive-energy residual frame satisfies $\T<5E/6$.
+\end{proposition}
+\begin{proof}
+Normalize $E=1$ and suppose $\T=5/6$. Equation~\eqref{anisogap} forces
+$R=I_2/2$. In this case the dropped-correction anchor expression is
+\[
+ f(s)=s/2+(1+s)/(4+2s),\qquad f(1)=5/6,\quad
+ f'(s)=1/2+1/(2(s+2)^2)>0.
+\]
+Since $\T\le f(\|w_i\|^2)$ for every $i$, all $\|w_i\|^2\ge1$.
+Their weighted mean is one and weights are positive, hence all equal one.
+
+For every anchor, $H_i=I_2/2+w_iw_i^\top/2$ has eigenvalues $1,1/2$,
+so $A_i$ is invertible and $\det H_i/\tr H_i=1/3$.
+Equation~\eqref{anchor} forces $\tr(A_iL_iA_i^\top)=0$, hence $L_i=0$
+and $S_i=H_i$. The minimum squared norm of a two-point convex mean in this
+star must equal $1/3$: Lemma~\ref{planar} bounds it above by $1/3$,
+while any smaller value would produce a certificate below $5/6$.
+Lemma~\ref{rigidity} therefore forces, for every star neighbor,
+\begin{equation}\label{dualnorm}
+ \|H_i^{-1}\xi_{ij}\|^2=\tr(H_i^{-1})=3.
+\end{equation}
+
+Choose $i,j$ from Lemma~\ref{angles}, and set
+$c=u_i^\top u_j/2$, $d=w_i^\top w_j$. This is an independent pair.
+In output coordinates with first axis $w_i$, the two components of
+$w_j-cw_i$ are $d-c$ and a number of squared magnitude $1-d^2$.
+Also $b_{ij}^2=2(1-c^2)$, and $H_i^{-1}$ has eigenvalues $1,2$.
+Thus \eqref{dualnorm} is equivalent to
+\[
+ \frac{(d-c)^2+4(1-d^2)}{2(1-c^2)}=3,\qquad
+ 7c^2-2cd-3d^2=2.
+\]
+But exact square completion gives
+\[
+ 7c^2-2cd-3d^2=\frac{22}{3}c^2-3(d+c/3)^2
+ \le\frac{11}{6}<2,
+\]
+a contradiction. This proves pointwise strictness.
+\end{proof}
+
+\section{A uniform gap}
 \begin{lemma}\label{seven}
 For each positive-energy frame there is a residual frame on a subset of
 at most seven of its fixed atoms, with energy $E'\le E$, and with
 $\T'\ge\T$. If $E'=0$, then $\T=0$.
 \end{lemma}
 \begin{proof}
+We recall Zhang's support reduction~\cite{zhang}, Appendix F.1.
 Minimize $\sum_i q_i\|w_i\|^2$ over nonnegative weights on the fixed
 atoms satisfying the frame constraints. The symmetric input covariance gives three linear equations and the
 cross-covariance gives four. Normalization follows by taking the trace
@@ -227,161 +333,70 @@ If $E'=0$, all remaining $w_i$ vanish; tightness still supplies an independent
 pair and its interpolator is zero. Then $\T' =0$, so $\T=0$.
 \end{proof}
 
-\begin{lemma}\label{stability}
-For a finite centered planar probability distribution, let $\tr A=1$,
-$C=\sum_jp_j\|Av_j\|^2\le1/2$, and let $m\ge1/4$ be the minimum
-squared norm of a convex combination of at most two original points.
-Set $\zeta=C-m\ge0$. For any original point $v_*$ with $\|v_*\|\le2$,
-\[
- C-\|Av_*\|^2\le50\zeta+10\sqrt\zeta\le60\sqrt\zeta.
-\]
-\end{lemma}
-\begin{proof}
-Choose a centered least-support minimizer $q$ of the linear $A$-cost. Since
-$m>0$, its support is a positive triangle. Put $S_q=\sum_jq_jv_jv_j^\top$,
-$n_j=S_q^{-1}v_j$, $r=\max_j\|n_j\|^2$, $M=\sum_jq_j\|n_j\|^2$,
-$\alpha=1/M$, and $C_q=\sum_jq_j\|Av_j\|^2$. The planar construction and
-weighted Cauchy--Schwarz yield
-\[
- m\le1/r\le\alpha\le C_q\le C.
-\]
-Consequently $r\le4$, $1/4\le\alpha\le1/2$, and
-\[
- r-M\le1/m-1/\alpha\le\zeta/(m\alpha)\le16\zeta.
-\]
-For $e_j=Av_j-\alpha n_j$, the trace identity gives
-$\sum_jq_j\|e_j\|^2=C_q-\alpha\le\zeta$.
-Write $c_j=\|Av_j\|^2$. Expanding and using Cauchy--Schwarz,
-\begin{align*}
- \sum_jq_j|c_j-\alpha^2r|
- &\le\alpha^2(r-M)+2\alpha\sqrt{r\zeta}+\zeta
- \le5\zeta+2\sqrt\zeta,\\
- |\alpha^2r-C|&\le\alpha^2(r-M)+(C-\alpha)\le5\zeta.
-\end{align*}
-Thus $\sum_jq_j|c_j-C|\le10\zeta+2\sqrt\zeta$.
-The affine coordinates of $v_*$ in the triangle are
-$\beta_j=q_j(1+n_j^\top v_*)$: they sum to one and reproduce $v_*$
-by the covariance identities. Since $\|n_j\|\le2$,
-$|\beta_j|\le5q_j$. Inserting $v_*$ with small positive weight while
-subtracting its affine coordinates from $q$ is feasible. LP optimality
-implies $\|Av_*\|^2\ge\sum_j\beta_jc_j$. Therefore
-\[
- C-\|Av_*\|^2\le\left|\sum_j\beta_j(c_j-C)\right|
- \le50\zeta+10\sqrt\zeta.
-\]
-Finally $0\le\zeta\le C\le1/2<1$, so $\zeta\le\sqrt\zeta$.
-No bound on omitted points, or on triangle vertices themselves, was assumed.
-\end{proof}
+\begin{proof}[Proof of the uniform frame assertion in Theorem~\ref{main}]
+Let $\Gamma=\sup\T/E$ over all finite positive-energy frames.
+We know $\Gamma\le5/6$. Suppose $\Gamma=5/6$.
+Take a sequence of positive ratios tending to $5/6$, apply
+Lemma~\ref{seven} (the reduced energy cannot be zero), and
+normalize each reduced energy to one. Its new ratio is at least the original
+ratio and at most $5/6$, so still tends to $5/6$. Write
+$\T^{(k)}\ge5/6-\epsilon_k$ with $\epsilon_k\downarrow0$.
+There are at most seven atoms. Relabel and pass to a subsequence of constant
+support size, and diagonalize $R_k=\operatorname{diag}(r_k,1-r_k)$ by
+output rotations, which preserve all frame identities and costs.
 
-
-\section{The explicit gap}
-\begin{proof}[Proof of the frame assertion in Theorem~\ref{main}]
-If $E=0$, all $w_i$ vanish and $\T=0$.
-For $E>0$, Lemma~\ref{seven} and homogeneity reduce the proof to at most
-seven atoms with $E=1$. Put $\epsilon=10^{-20}$ and suppose
-$\T\ge5/6-\epsilon$. By \eqref{anisogap},
-$\delta^2\le60\epsilon/11$. Set $\eta=2\epsilon+|\delta|$; then
-$\eta<3/10^{10}$, since $60/11<25/4$.
-
-For $s=\|w_i\|^2$ the anchor bound is at most
-$f(s)+|\delta|/2$, where
+By \eqref{anisogap},
 \[
- f(s)=s/2+(1+s)/(4+2s),\quad f(1)=5/6,\quad
- 1/2\le f'(s)=1/2+1/(2(s+2)^2)\le5/8\quad(s\ge0).
+ |\delta_k|=|2r_k-1|\le\sqrt{60\epsilon_k/11}\longrightarrow0.
 \]
-Indeed $r(1-r)\le1/4$ and
-$((1-r)a+rb)/2\le(1+|\delta|)s/4$.
-It follows that every $s_i\ge1-\eta$, and
+For an arbitrary atom put $s_i^{(k)}=\|w_i^{(k)}\|^2$.
+The normalized anchor expression satisfies
+\[
+ g_{r_k}(a_i,b_i)\le f(s_i^{(k)})+|\delta_k|/2.
+\]
+This follows from $r_k(1-r_k)\le1/4$ and
+$((1-r_k)a_i+r_kb_i)/2\le(1+|\delta_k|)s_i^{(k)}/4$.
+As $\T^{(k)}\le g_{r_k}(a_i,b_i)$ for every atom and $f'\ge1/2$,
+\[
+ s_i^{(k)}\ge1-\eta_k,\qquad
+ \eta_k=2\epsilon_k+|\delta_k|\longrightarrow0.
+\]
+Every summand below is nonnegative, and
 \begin{equation}\label{energycontrol}
- \sum_i p_i(s_i-1+\eta)=\eta.
+ \sum_i p_i^{(k)}(s_i^{(k)}-1+\eta_k)=\eta_k.
 \end{equation}
-Hence if $p_i\ge1/28$, then $1-\eta\le s_i\le1+27\eta$.
+For every index set $B$, summing its nonnegative terms gives
+\[
+ \sum_{i\in B}p_i^{(k)}s_i^{(k)}
+ \le(1-\eta_k)\sum_{i\in B}p_i^{(k)}+\eta_k
+ \le\sum_{i\in B}p_i^{(k)}+\eta_k.
+\]
+Thus atoms with vanishing probability cannot retain positive energy.
 
-Retain these heavy atoms. The discarded mass is at most $1/4$.
-Writing $u_i/\sqrt2=(\cos\theta_i,\sin\theta_i)$, tightness says that
-$t_i=(\cos2\theta_i,\sin2\theta_i)$ has total mean zero.
-The retained conditional mean has norm at most $1/3$.
-There are therefore heavy $i,j$ with $t_i^\top t_j\le-1/2$, or equivalently
-$c^2=(u_i^\top u_j/2)^2\le1/4$.
-To see this, if zero lies in the retained hull, represent it using at most
-three circle points. An antipodal pair, or a cyclic angular gap in
-$[2\pi/3,\pi]$, gives the assertion. If zero is outside the hull,
-its nearest point lies on a boundary edge (a vertex has norm one).
-For unit endpoints the nearest point of their segment is its midpoint;
-the squared distance is $(1+t_i^\top t_j)/2\le1/9$.
+Pass to subsequences with $p_i^{(k)}\to p_i$ and
+$u_i^{(k)}\to u_i$; probabilities and input directions lie in compact sets.
+For $J=\{i:p_i>0\}$, equation~\eqref{energycontrol} forces
+$s_i^{(k)}\to1$. These $w_i^{(k)}$ are bounded, so pass further to
+$w_i^{(k)}\to w_i$. For $i\notin J$,
+$p_i^{(k)}s_i^{(k)}\le p_i^{(k)}+\eta_k\to0$.
+Its output covariance contribution tends to zero, and its cross-covariance
+has norm at most $\sqrt2\sqrt{p_i^{(k)}}\sqrt{p_i^{(k)}s_i^{(k)}}\to0$.
+The surviving positive-weight atoms thus satisfy all frame identities,
+have unit output norm, total energy one, and covariance $R=I_2/2$.
 
-For the star at this heavy anchor, write
-$H=R+w_iw_i^\top/2$, $A=\adj H/\tr H$, $\kappa=\det H/\tr H$,
-$S=H-L$, $C=\tr(ASA^\top)$, and let $m$ be the minimum two-point
-squared mean norm. Put $g_i=s_i/2+\kappa$.
-Lemma~\ref{planar} and the anchored certificates give
-$m\le C\le\kappa$ and $\T\le s_i/2+m$. Thus
+By Proposition~\ref{strictfinite}, this limiting frame has $\T^{(\infty)}<5/6$.
+Take a witnessing convex combination of pair interpolators on at most three
+of its surviving indices. Every pair used has a nonzero limiting determinant;
+the same pairs are independent for all sufficiently large $k$, and their
+interpolators converge. Keeping its convex coefficients gives
 \[
- 0\le\zeta=C-m\le\kappa-m\le g_i-\T
- \le\frac{135}{8}\eta+|\delta|/2+\epsilon\le19\eta,
- \qquad m\ge1/3-\epsilon-27\eta/2\ge1/4.
+ \limsup_k\T^{(k)}\le\T^{(\infty)}<5/6,
 \]
-Put $v_k=w_k/\|w_k\|$ for $k=i,j$, and
-$H_0=I_2/2+v_iv_i^\top/2$, $A_0=\adj H_0/(3/2)$.
-All subsequent estimates hold for $\eta\le10^{-3}$, which is satisfied.
-Output diagonalization gives
-$\|R-I_2/2\|_{\mathrm{op}}=|\delta|/2$. Hence
-\[
- \|H-H_0\|_{\mathrm{op}}\le14\eta,\quad
- |\tr H-3/2|\le27\eta/2,\quad \tr H\ge1.
-\]
-$H$ is positive definite, $A$ has trace one, and
-$\kappa\le\tr H/4\le1/2$, so $C\le1/2$.
-Writing $D=H-H_0$, the two-dimensional determinant expansion gives
-\[
- |\det H-1/2|\le(3/2)\|D\|_{\mathrm{op}}+\|D\|_{\mathrm{op}}^2
- \le22\eta.
-\]
-It follows that $|\kappa-1/3|\le27\eta$. The identity
-$\adj H/\tr H=I_2-H/\tr H$ gives
-$\|A-A_0\|_{\mathrm{op}}\le23\eta$.
-
-For the selected neighbor, put $b=b_{ij}$. Then
-\[
- \xi=(w_j-cw_i)/b,\qquad \xi_0=(v_j-cv_i)/b,\qquad
- b^2=2(1-c^2)\ge3/2.
-\]
-The heavy norm bounds imply $\|\xi\|\le2$, $\|\xi_0\|\le3/2$,
-and $\|\xi-\xi_0\|\le41\eta$; use
-$|\sqrt{s_k}-1|\le|s_k-1|\le27\eta$ and $|c|\le1/2$.
-As $A$ is positive definite of trace one, its operator norm is at most one.
-Thus
-\[
- \|A\xi-A_0\xi_0\|\le87\eta,\qquad
- |\|A\xi\|^2-\|A_0\xi_0\|^2|\le305\eta.
-\]
-For $d=v_i^\top v_j$, the eigenvalues of $H_0^{-1}$ are $1,2$, so
-\[
- \|A_0\xi_0\|^2=
- \frac{(d-c)^2+4(1-d^2)}{18(1-c^2)}\le\frac{26}{81}.
-\]
-Indeed the numerator minus $(52/9)(1-c^2)$ equals
-$(64/9)c^2-16/9-3(d+c/3)^2\le0$.
-Consequently
-\[
- \kappa-\|A\xi\|^2\ge1/81-332\eta\ge1/162.
-\]
-Here $\eta<3/10^{10}$.
-Since $\kappa-C\le19\eta$, we obtain
-\[
- C-\|A\xi\|^2\ge1/162-19\eta\ge1/200.
-\]
-All hypotheses of Lemma~\ref{stability} hold for this original star point.
-It forces
-\[
- 1/200\le60\sqrt\zeta,\qquad \zeta\ge1/144000000.
-\]
-But $\zeta\le19\eta<57/10^{10}<1/144000000$, since
-$57\cdot144000000=8208000000<10^{10}$. This contradiction proves
-$\T<5/6-10^{-20}$ on the normalized reduced support, and the non-strict
-bound transfers to all finite frames by Lemma~\ref{seven}.
+contradicting $\T^{(k)}\to5/6$. Consequently $\Gamma<5/6$.
+Set $\varepsilon_0=5/6-\Gamma>0$. This proves the uniform bound for
+positive energy. If $E=0$, all $w_i$ vanish and $\T=0$, so the same
+bound holds. No numerical lower bound on $\varepsilon_0$ is used.
 \end{proof}
-
 
 \section{Return to regression}
 Let $W^\circ$ be the full-data minimum-norm minimizer and
@@ -397,7 +412,8 @@ For $\ell_i>0$, set
  p_i=\ell_i/2,\qquad u_i=\sqrt{2/\ell_i}\,v_i,\qquad
  w_i=\sqrt{2/\ell_i}\,\rho_i.
 \]
-These satisfy \eqref{frame}, with $E=\sum_{\ell_i>0}\|\rho_i\|^2\le NL_D^*$.
+The omitted indices have $x_i=0$ and contribute only unavoidable loss.
+The remaining atoms satisfy \eqref{frame}, with $E=\sum_{\ell_i>0}\|\rho_i\|^2\le NL_D^*$.
 For $\Theta=(W-W^\circ)K^{1/2}$, the excess loss is $\|\Theta\|_F^2/N$.
 
 Given frame weights $q$, choose original weights proportional to $q_i/\ell_i$.
@@ -414,11 +430,16 @@ diagonal terms vanish and the $i,j$ numerator term is $D_{ij}G_{ij}$.
 
 The hulls defining $\T$ are closures of full-rank fits on the same support
 (cf.\ Zhang~\cite{zhang}, Lemma~E.1).
-For three independent pairs, positive prescribed coefficients $\beta$
-are attained by
-$q_i:q_j:q_k=D_{jk}/\beta_{jk}:D_{ik}/\beta_{ik}:D_{ij}/\beta_{ij}$;
-boundary coefficients follow by limits. For an anchored segment with
-coefficients $\alpha_j$, take
+For three pairwise independent directions and positive coefficients
+$\beta_{ij},\beta_{ik},\beta_{jk}$ of sum one, choose
+\[
+ q_i:q_j:q_k=
+ D_{jk}/\beta_{jk}:D_{ik}/\beta_{ik}:D_{ij}/\beta_{ij}.
+\]
+Substitution in \eqref{mixture} gives exactly the prescribed coefficients;
+boundary coefficients follow by limits. If two directions are parallel, the valid pairs share an anchor $i$.
+For a convex combination of its valid neighbors with coefficients
+$\alpha_j$, take
 \[
  q_i=1-t,\qquad q_j=t\frac{\alpha_j/D_{ij}}{\sum_k\alpha_k/D_{ik}},
  \qquad 0<t<1.
@@ -429,7 +450,7 @@ endpoints use an independent pair. Every approximating fit is full rank.
 Consequently
 \[
  \inf_{|\supp c|\le3}L_D(\widehat W_c)
- \le L_D^*+\T/N\le(11/6-10^{-20})L_D^*.
+ \le L_D^*+\T/N\le(11/6-\varepsilon_0)L_D^*.
 \]
 No invariance of minimum-norm tie breaking under whitening is needed.
 
@@ -440,30 +461,31 @@ Represent zero by at most three of them and choose original weights
 proportional to the representation coefficients divided by $a_i^2$.
 The selected normal equation recovers $\beta$; minimum norm sets the action
 on $e^\perp$ to zero. Rank zero is immediate.
-If $E=0$, a feature basis of size at most two recovers $W^\circ$ on the
-feature span, including the zero-loss case. These cases have ratio one.
+In the full-rank branch, $E=0$ means that every nonzero-feature residual
+vanishes; a feature basis of size two then recovers $W^\circ$.
+If $L_D^*=0$, choose a basis of the feature span (at most two observations);
+its minimum-norm interpolator fits the full dataset. Thus all degenerate
+branches have ratio one, including the convention $0/0=1$.
 This proves Theorem~\ref{main}. The lower bound $13/8$ is
 Zhang's Proposition~6.3~\cite{zhang}.
 
-\section{Formal verification}
-Source and Lean code are available at
+\section{Formal verification and code}
+The companion Lean source is available at
 \url{https://github.com/nZiben/weighted-selection-gap}.
-The file \texttt{lean/Scalar.lean} verifies the two polynomial identities,
-finite scalar moment selection, the bound $5/6-(11/60)(2r-1)^2$,
-sharpness of the scalar relaxation, the ratio bound $26/9$, and the
-exact numerical implications used above. The scalar selection theorems
-assume only nonnegativity, normalization and the two stated moments;
-they do not assume a selection bound.
-The final numerical contradiction is explicitly conditional on the
-geometric estimates proved in this paper. The planar selection and
-stability lemmas, support reduction, and regression bridge are not
-formalized; thus this is a partial formalization, not a Lean proof of
-Theorem~\ref{main}.
-The checked source uses Lean~4.34.0 and a pinned Mathlib revision.
-The repository contains the compiler record and reproduction commands.
-The reported theorem axioms are only \texttt{propext},
-\texttt{Classical.choice} and \texttt{Quot.sound}; no proof placeholders
-or additional axioms are used.
+It proves the scalar moment selection theorem, its anisotropy bound
+\eqref{anisogap} in scalar form, optimality of the scalar relaxation, and
+the polynomial obstruction in Proposition~\ref{strictfinite}.
+The selection theorem assumes only nonnegativity, normalization and the
+two scalar moments; it does not assume the desired selection conclusion.
+
+This is a partial formalization. The planar lemma, equality rigidity,
+support reduction, compactness and the regression bridge are proved in
+this paper and are not formalized in Lean. In particular, the repository
+does not claim a Lean proof of Theorem~\ref{main}.
+The source is checked using Lean~4.34.0 with a pinned Mathlib revision;
+reproduction commands and the compiler record are included.
+The audited declarations use only \texttt{propext},
+\texttt{Classical.choice} and \texttt{Quot.sound}.
 
 \section*{Use of AI}
 The proof was produced by GPT-6 Pro (GPT-6 Astra) in the ChatGPT user interface.

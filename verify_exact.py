@@ -76,20 +76,4 @@ for i,j in [(0,1),(0,2),(1,2)]:
     mid=(vertices[i]+vertices[j])/2
     check(f"lower construction edge midpoint ({i},{j})", mid.dot(mid)-sp.Rational(1,4))
 
-def check_inequality(label, statement):
-    if statement != sp.true:
-        raise AssertionError(label)
-    print(f"PASS: {label}")
-
-eps = sp.Rational(1,10**20)
-eta_bound = sp.Rational(3,10**10)
-check_inequality("delta comparison", sp.Rational(60,11) < sp.Rational(25,4))
-check_inequality("eta bound", 2*eps+sp.Rational(5,2*10**10) < eta_bound)
-check_inequality("star cost gap bound", sp.Rational(143,8) < 19)
-check_inequality("determinant perturbation constant", 21+sp.Rational(196,1000) <= 22)
-check_inequality("isotropic comparison deficit", sp.Rational(1,81)-sp.Rational(332,10**5) >= sp.Rational(1,162))
-check_inequality("planar cost deficit", sp.Rational(1,162)-sp.Rational(19,10**5) >= sp.Rational(1,200))
-check("planar stability numeric lower bound", (sp.Rational(1,200)/60)**2-sp.Rational(1,144000000))
-check_inequality("final quantitative contradiction", 19*eta_bound < sp.Rational(1,144000000))
-check_inequality("new interval is nonempty", sp.Rational(13,8) < sp.Rational(11,6)-eps)
 print("All exact symbolic checks passed.")

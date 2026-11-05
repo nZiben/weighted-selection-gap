@@ -1,0 +1,30 @@
+name: Lean verification
+on:
+  push:
+    paths:
+      - 'lean/**'
+      - '.github/workflows/lean.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
+          auto-config: false
+          build: true
+          use-mathlib-cache: true
+      - name: Audit theorem axioms
+        run: python3 lean/check_local.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lean-verification
+          path: |
+            lean/lean-check.json
+            lean/lean-output.txt
+            lean/lake-manifest.json

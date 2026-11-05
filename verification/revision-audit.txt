@@ -1,0 +1,38 @@
+Publication revision audit, 5 November 2026
+
+CONFIRMED ERROR IN THE PREVIOUS TEXT
+The earlier quantitative section asserted that all subsequent estimates hold for
+eta <= 10^(-3). Its later inequality 1/81 - 332 eta >= 1/162 is false at eta=10^(-3).
+The actual numerical argument used a much smaller eta, so this false range assertion
+does not by itself disprove the old theorem. It is not a claim that the user's
+unspecified error has been uniquely identified or that every possible error is excluded.
+
+CURRENT CLAIM AND PROOF
+The publication text removes the quantitative perturbation calculation, including
+305, 332 and the asserted numerical gap 10^(-20). It proves a universal positive gap
+without a numerical value, using scalar anisotropy, equality rigidity, support
+reduction to at most seven atoms, and a compactness contradiction.
+The sequence argument explicitly rules out energy retained by vanishing-weight atoms.
+It transfers a fixed limiting convex certificate through pairs whose determinants
+remain nonzero. It does not assume compactness of all normalized residual frames.
+The regression bridge includes rank-zero, rank-one, zero-energy, zero-loss, parallel
+directions and limiting full-rank weights. Whitening is not assumed to preserve
+minimum-norm tie breaking for singular selected designs.
+
+FORMAL VERIFICATION BOUNDARY
+Scalar.lean verifies scalar identities, moment selection, the anisotropy improvement,
+sharpness of the scalar relaxation and the algebraic equality obstruction.
+Its selection hypotheses are moment constraints, not the desired selection bound.
+It does not formalize planar geometry, rigidity, support reduction, compactness,
+or the regression bridge. Those remain susceptible to mistakes in the written proof.
+See lean-check.json and lean-output.txt for the exact successful compiler record.
+This audit is AI-assisted, not an independent human referee report.
+
+EDITORIAL CHECKS
+Compared the structure with the COLT 2025 open-problem paper and the related preprints
+listed in the bibliography. Kept a conventional title/author/abstract, main theorem,
+lemmas with proofs, regression application, verification scope, AI note and references.
+The author remains Volkov Sergey, with no affiliation or email.
+The Use of AI sentence is preserved verbatim from the previous approved text:
+The proof was produced by GPT-6 Pro (GPT-6 Astra) in the ChatGPT user interface.
+No claim of independent verification of the model label is made by this audit.

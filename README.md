@@ -1,74 +1,70 @@
-# An explicit gap for three-point weighted selection
+# A strict upper bound for three-point weighted selection
 
-**Volkov Sergey.** Preprint, 10 October 2026.
+**Volkov Sergey.** Preprint, 5 November 2026. Six pages.
 
-The paper proves `T₃ ≤ (5/6 − 10⁻²⁰) E` for finite planar residual frames and derives
-`F_weighted(2,2,3) ≤ 11/6 − 10⁻²⁰` for minimum-Frobenius-norm regression.
-It does not determine the conjectured sharp value 13/8.
+The paper proves the existence of a universal constant `ε₀ > 0` such that
+`T₃ ≤ (5/6 − ε₀) E` for finite planar residual frames. It derives
+`13/8 ≤ F_weighted(2,2,3) ≤ 11/6 − ε₀ < 11/6` for minimum-Frobenius-norm regression.
+This revision does not specify a numerical value of `ε₀` or determine the sharp value.
+It supersedes the earlier numerical version in this repository's history.
 
 - [Preprint PDF](preprint.pdf)
 - [Standalone LaTeX source](preprint.tex)
 - [Lean source](lean/Scalar.lean)
-- [Compiler/axiom audit](verification/lean-check.json)
+- [Compiler and axiom audit](verification/lean-check.json)
+- [Revision audit and limitations](verification/revision-audit.txt)
+- [Continuous verification](https://github.com/nZiben/weighted-selection-gap/actions/workflows/lean.yml)
 
-## Exact formalized scope and noncircularity
+## Formalized scope and noncircularity
 
-This is **partial formal verification**, not a Lean proof of the full geometric/regression theorem.
-There is no formal definition of `T₃` or regression learners in the Lean package.
-The paper supplies the geometric arguments separately.
+This is **partial formal verification**. The Lean package does not define `T₃`
+or regression learners and does not prove the full frame or regression theorem.
+The planar lemma, equality rigidity, support reduction, compactness and regression
+bridge are supplied by the written proof.
 
-| Lean theorem | Assumptions | Proven conclusion / role |
+| Lean theorem | Assumptions | Conclusion |
 | --- | --- | --- |
-| `certificate_identity`, `cost_identity` | Arbitrary real parameters; nonnegative `a,b` for the cost conversion | Exact polynomial/rational identities in the scalar proof |
-| `scalar_moment_selection` | Finite nonnegative `p,a,b`; sum `p=1`; `0≤r≤1`; means `a=r`, `b=1−r` | A positive-weight atom has scalar cost at most 5/6 |
-| `scalar_anisotropy_selection` | Exactly the same finite moment assumptions | A positive-weight atom has cost at most `5/6−(11/60)(2r−1)²` |
-| `scalar_relaxation_optimal` | Arbitrary real proposed bound `c` | Universal scalar bound holds iff `5/6≤c`; the sharpness witness is a valid scalar distribution, not a frame |
-| `isotropic_ratio_bound` | `c²≤1/4`; arbitrary real `d` | The unit-output comparison ratio is at most 26/9 |
-| `quantitative_numeric_contradiction` | Bounds on `δ,ζ`, a nonnegative `t` with `t²=ζ`, and the stability deficit inequality | These numerical estimates are inconsistent at `ε=10⁻²⁰`; **the geometric estimates are not derived in Lean** |
+| `certificate_identity`, `cost_identity` | Real parameters; nonnegative `a,b` for the rational identity | Exact identities used in the scalar proof |
+| `scalar_moment_selection` | Finite nonnegative `p,a,b`; sum `p=1`; `0≤r≤1`; means `a=r`, `b=1−r` | A positive-weight atom has scalar cost at most `5/6` |
+| `scalar_anisotropy_selection` | The same scalar moment assumptions | A positive-weight atom has cost at most `5/6−(11/60)(2r−1)²` |
+| `scalar_relaxation_optimal` | A real proposed bound `c` | A universal scalar bound holds exactly when `5/6≤c` |
+| `isotropic_equality_impossible` | `c²≤1/4`; arbitrary real `d` | `7c²−2cd−3d²<2`, the algebraic obstruction to equality |
 
-The finite scalar selection theorems assume neither the desired selection bound nor the existence of a selected atom.
-The conditional numerical lemma is not presented as a proof of the frame theorem.
-No conclusion-equivalent frame bound is hidden in a formalized geometric theorem: no such theorem is claimed here.
+The selection theorems assume neither the desired selection bound nor the existence
+of the selected atom. Their moment hypotheses are derived from the frame in the paper.
+The one-atom sharpness example concerns the scalar relaxation, not an extremal frame.
 The source contains no `sorry`, `admit`, custom axiom or `native_decide`.
-All 16 audited declarations depend only on `propext`, `Classical.choice`, and `Quot.sound`.
+The 11 audited declarations use only `propext`, `Classical.choice`, and `Quot.sound`;
+their transitive dependencies are included in these axiom reports.
 
 ## Reproduction
 
-The source was checked as one file using the Lean community web server's `mathlib-stable` project.
-The record includes the SHA-256 of the exact source, Lean version, all compiler diagnostics and all 16 axiom reports.
-The captured remote dependency manifest is included for provenance; it is not the local package manifest.
-No local `lake build` was performed on the authoring machine because Lean was not installed there.
-
-Local reproduction with Lean/Elan installed:
+Install Lean/Elan, then run from the repository root:
 
 ```sh
 cd lean
-lake update
 lake exe cache get
 lake build
+cd ..
+python lean/check_local.py
 ```
 
-The toolchain is Lean 4.34.0 and Mathlib is pinned to
-`5ed2965256430c3649e86755f9576b54eca72435`.
+The toolchain is Lean 4.34.0. Mathlib is pinned to
+`5ed2965256430c3649e86755f9576b54eca72435`; the complete dependency lockfile is
+`lean/lake-manifest.json`. The GitHub Actions workflow performs the build and axiom audit.
+The checked source hash, CI run, and compiler output are recorded in `verification/`.
+The checker requires successful compilation, an end-of-file marker, exactly 11 axiom
+reports, and no audited axioms outside the three listed above.
 
-Alternatively, with Node.js 22 or later:
-
-```sh
-node lean/check_lean.mjs lean/Scalar.lean mathlib-stable lean-check.jsonl
-```
-
-The checker waits for an end-of-file compiler marker, rejects compiler errors and nonstandard audited axioms,
-and checks that all 16 axiom reports were received. The remote stable project may change in the future;
-use the pinned local toolchain for exact reproduction.
-
-Exact supplementary algebra checks:
+Supplementary exact algebra checks:
 
 ```sh
 python -m pip install -r requirements.txt
 python verify_exact.py
 ```
 
-These symbolic checks supplement the proof and do not establish its geometric steps.
+These symbolic checks do not establish the geometric or compactness arguments.
+The LaTeX source has an embedded bibliography and can be compiled twice with `pdflatex`.
 
 ## Primary references
 
