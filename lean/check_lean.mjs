@@ -53,7 +53,7 @@ socket.addEventListener('message',ev=>{
             .some(a=>!['propext','Classical.choice','Quot.sound'].includes(a.trim()))));
       const axiomChecks=diagnostics.filter(d=>d.message.includes('depends on axioms:')).length;
       finish(diagnostics.some(d=>d.severity===1)?'lean_errors':
-        badAxiom?'unexpected_axiom':axiomChecks!==16?'missing_axiom_audit':'success');
+        badAxiom?'unexpected_axiom':axiomChecks!==11?'missing_axiom_audit':'success');
     }
   }
 });

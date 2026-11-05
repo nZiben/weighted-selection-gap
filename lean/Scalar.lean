@@ -152,62 +152,6 @@ theorem isotropic_ratio_bound (c d : ℝ) (hc : c ^ 2 ≤ 1 / 4) :
   apply (div_le_iff₀ hden).2
   nlinarith [sq_nonneg (d + c / 3)]
 
-/- Conditional exact arithmetic for the quantitative geometric proof.
-   These lemmas verify numeric extraction only; their hypotheses are supplied
-   by the separately audited, human-readable frame stability argument. -/
-def epsilon : ℝ := 1 / (10 : ℝ) ^ 20
-
-theorem delta_numeric_bound (d : ℝ) (hd : d ^ 2 ≤ (60 / 11 : ℝ) * epsilon) :
-    |d| < 5 / (2 * (10 : ℝ) ^ 10) := by
-  have hgap : (60 / 11 : ℝ) * epsilon < (5 / (2 * (10 : ℝ) ^ 10)) ^ 2 := by
-    norm_num [epsilon]
-  have hsq : |d| ^ 2 < (5 / (2 * (10 : ℝ) ^ 10)) ^ 2 := by
-    simpa only [sq_abs] using lt_of_le_of_lt hd hgap
-  have hb : 0 < (5 / (2 * (10 : ℝ) ^ 10)) := by norm_num
-  nlinarith [abs_nonneg d]
-
-theorem eta_numeric_bound (d : ℝ) (hd : d ^ 2 ≤ (60 / 11 : ℝ) * epsilon) :
-    2 * epsilon + |d| < 3 / (10 : ℝ) ^ 10 := by
-  have hsmall := delta_numeric_bound d hd
-  have hgap : 2 * epsilon + 5 / (2 * (10 : ℝ) ^ 10) < 3 / (10 : ℝ) ^ 10 := by
-    norm_num [epsilon]
-  linarith
-
-theorem zeta_numeric_lower_bound (z t : ℝ) (_ht : 0 ≤ t)
-    (htsq : t ^ 2 = z) (hdeficit : (1 / 200 : ℝ) ≤ 60 * t) :
-    (1 / 144000000 : ℝ) ≤ z := by
-  have htlo : (1 / 12000 : ℝ) ≤ t := by linarith
-  have hprod : 0 ≤ (t - 1 / 12000) * (t + 1 / 12000) :=
-    mul_nonneg (by linarith) (by linarith)
-  nlinarith
-
-theorem quantitative_numeric_contradiction (d z t : ℝ)
-    (hd : d ^ 2 ≤ (60 / 11 : ℝ) * epsilon)
-    (_hzlo : 0 ≤ z) (hzhi : z ≤ 19 * (2 * epsilon + |d|))
-    (ht : 0 ≤ t) (htsq : t ^ 2 = z)
-    (hdeficit : (1 / 200 : ℝ) ≤ 60 * t) : False := by
-  have heta := eta_numeric_bound d hd
-  have hzsmall : z < 57 / (10 : ℝ) ^ 10 := by nlinarith
-  have hzlarge := zeta_numeric_lower_bound z t ht htsq hdeficit
-  have hgap : (57 / (10 : ℝ) ^ 10) < (1 / 144000000 : ℝ) := by norm_num
-  linarith
-
-theorem quantitative_perturbation_constants (eta : ℝ)
-    (_heta0 : 0 ≤ eta) (heta : eta < 3 / (10 : ℝ) ^ 10) :
-    eta ≤ 1 / (10 : ℝ) ^ 5 ∧
-    eta ≤ 1 / (10 : ℝ) ^ 3 ∧
-    (1 / 3 : ℝ) - epsilon - 27 / 2 * eta ≥ 1 / 4 ∧
-    (1 / 81 : ℝ) - 332 * eta ≥ 1 / 162 ∧
-    (1 / 162 : ℝ) - 19 * eta ≥ 1 / 200 := by
-  norm_num [epsilon] at *
-  constructor
-  · linarith
-  constructor
-  · linarith
-  constructor
-  · linarith
-  constructor <;> linarith
-
 /- The anisotropy improvement follows from scalar moment assumptions alone.
    Neither a selection bound nor its conclusion is assumed. -/
 theorem certificate_support_bound (d a b : ℝ)
@@ -283,11 +227,6 @@ end WeightedSelectionScalar
 #print axioms WeightedSelectionScalar.scalar_relaxation_optimal
 #print axioms WeightedSelectionScalar.isotropic_equality_impossible
 #print axioms WeightedSelectionScalar.isotropic_ratio_bound
-#print axioms WeightedSelectionScalar.delta_numeric_bound
-#print axioms WeightedSelectionScalar.eta_numeric_bound
-#print axioms WeightedSelectionScalar.zeta_numeric_lower_bound
-#print axioms WeightedSelectionScalar.quantitative_numeric_contradiction
-#print axioms WeightedSelectionScalar.quantitative_perturbation_constants
 #print axioms WeightedSelectionScalar.certificate_support_bound
 #print axioms WeightedSelectionScalar.certificate_anisotropy_bound
 #print axioms WeightedSelectionScalar.scalar_anisotropy_selection
