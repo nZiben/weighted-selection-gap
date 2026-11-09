@@ -1,6 +1,5 @@
 # A strict upper bound for three-point weighted selection
 
-**Volkov Sergey.** Preprint, 5 November 2026. Six pages.
 
 The paper proves the existence of a universal constant `ε₀ > 0` such that
 `T₃ ≤ (5/6 − ε₀) E` for finite planar residual frames. It derives
@@ -8,11 +7,8 @@ The paper proves the existence of a universal constant `ε₀ > 0` such that
 This revision does not specify a numerical value of `ε₀` or determine the sharp value.
 It supersedes the earlier numerical version in this repository's history.
 
-- [Preprint PDF](preprint.pdf)
-- [Standalone LaTeX source](preprint.tex)
 - [Lean source](lean/Scalar.lean)
 - [Compiler and axiom audit](verification/lean-check.json)
-- [Revision audit and limitations](verification/revision-audit.txt)
 - [Continuous verification](https://github.com/nZiben/weighted-selection-gap/actions/workflows/lean.yml)
 
 ## Formalized scope and noncircularity
